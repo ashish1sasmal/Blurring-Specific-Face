@@ -5,6 +5,7 @@
 
 import cv2
 import sys
+import numpy as np
 
 img1 = cv2.imread(f"Test/{sys.argv[1]}")
 # face_cascade = cv2.CascadeClassifier('face_detector.xml')
@@ -43,8 +44,12 @@ for x,y,w,h in locs:
             match_loc.append((x,y,w,h))
 
 x,y,w,h = match_loc[0]
-cv2.rectangle(img1, (h,x), (y, w), (255, 0, 0), 2)
+# cv2.rectangle(img1, (h,x), (y, w), (255, 0, 0), 2)
 
-cv2.imwrite("Result/face_detected.png",img1)
+face_blur = img1[x:w, h:y]
+kernel = np.ones((10,10),np.float32)/100
+img1[x:w, h:y] = cv2.filter2D(face_blur,-1,kernel)
+
+# cv2.imwrite("Result/face_detected.png",img1)
 cv2.imshow("Result",img1)
 cv2.waitKey(0)
