@@ -50,6 +50,6 @@ face_blur = img1[x:w, h:y]
 kernel = np.ones((10,10),np.float32)/100
 img1[x:w, h:y] = cv2.filter2D(face_blur,-1,kernel)
 
-# cv2.imwrite("Result/face_detected.png",img1)
+cv2.imwrite("Result/face_blur3.png",img1)
 cv2.imshow("Result",img1)
 cv2.waitKey(0)
